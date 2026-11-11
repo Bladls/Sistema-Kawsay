@@ -1,3 +1,4 @@
+from datetime import datetime
 from paciente import Paciente
 from medico import Medico
 
@@ -31,3 +32,10 @@ def registrar_medico(codigo, nombre, especialidad):
         return False
     lista_medico.append(crear_persona("medico", codigo, nombre.strip(), especialidad.strip()))
     return True
+
+def validar_fecha(fecha):
+    try:
+        dia = datetime.strptime(fecha.strip(), "%d/%m/%Y")
+    except ValueError:
+        return False
+    return dia.date() >= datetime.now().date() and dia <= datetime(2026, 12, 31)
