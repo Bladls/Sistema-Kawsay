@@ -1,6 +1,7 @@
 from datetime import datetime
 from paciente import Paciente
 from medico import Medico
+from cita import Cita
 
 lista_paciente = []
 lista_medico = []
@@ -39,3 +40,12 @@ def validar_fecha(fecha):
     except ValueError:
         return False
     return dia.date() >= datetime.now().date() and dia <= datetime(2026, 12, 31)
+
+def programar_cita(codigo_paciente, codigo_medico, fecha):
+    paciente = buscar_codigo(lista_paciente, codigo_paciente)
+    medico = buscar_codigo(lista_medico, codigo_medico)
+    if paciente == False or medico == False:
+        return False
+    cita = Cita(f"C{len(lista_cita) + 1:03d}", paciente, medico, fecha.strip())
+    lista_cita.append(cita)
+    return cita
