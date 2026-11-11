@@ -58,3 +58,9 @@ def registrar_atencion(codigo, codigo_paciente, codigo_medico, motivo):
         return False
     historial.append({"codigo": codigo, "paciente": codigo_paciente, "medico": codigo_medico, "motivo": motivo.strip()})
     return True
+
+def filtrar_especialidad(especialidad):
+    return list(filter(lambda m: especialidad.strip().upper() in m.especialidad.upper(), lista_medico))
+
+def filtrar_atencion(codigo_paciente):
+    return list(filter(lambda a: a["paciente"] == codigo_paciente, historial))
