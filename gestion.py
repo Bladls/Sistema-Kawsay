@@ -25,3 +25,9 @@ def registrar_paciente(codigo, nombre, edad):
         return False
     lista_paciente.append(crear_persona("paciente", codigo, nombre.strip(), edad))
     return True
+
+def registrar_medico(codigo, nombre, especialidad):
+    if buscar_codigo(lista_medico, codigo) != False or nombre.strip() == "" or especialidad.strip() == "":
+        return False
+    lista_medico.append(crear_persona("medico", codigo, nombre.strip(), especialidad.strip()))
+    return True
