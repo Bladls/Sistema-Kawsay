@@ -1,6 +1,7 @@
 from datetime import datetime
-from gestion import (lista_paciente, lista_medico, buscar_codigo, registrar_paciente, registrar_medico,
-                       validar_fecha, programar_cita, filtrar_especialidad, enmascarar)
+from gestion import (lista_paciente, lista_medico, lista_cita, historial, buscar_codigo, registrar_paciente,
+                       registrar_medico, validar_fecha, programar_cita, registrar_atencion,
+                       filtrar_especialidad, filtrar_atencion, enmascarar)
 
 print("=== SISTEMA KAWSAY (prototipo con datos ficticios) ===")
 print("Use un nombre inventado para el paciente. No escriba DNI, teléfono ni datos médicos reales.")
@@ -41,6 +42,20 @@ while seguir == "s":
     cita = programar_cita(codigo_paciente, codigo_medico, fecha)
     print(f"Cita programada -> {cita.codigo}: {enmascarar(nombre)} con Dr. {cita.medico.nombre} - {cita.fecha}")
 
+    motivo = input("Motivo de la consulta (ejemplo: control general): ")
+    while motivo.strip() == "":
+        motivo = input("Error: el motivo no puede estar vacío. Escriba el motivo: ")
+    registrar_atencion(f"A{len(historial) + 1:03d}", codigo_paciente, codigo_medico, motivo)
+    print("Atención registrada.")
+
+    print("\nHistorial de los pacientes:")
+    propia = filtrar_atencion(codigo_paciente)
+    if len(propia) == 0:
+        print("   Sin atenciones registradas.")
+    for a in propia:
+        print(f"   {a['codigo']} | paciente {enmascarar(nombre)} | médico Dr. {buscar_codigo(lista_medico, a['medico']).nombre} | motivo: {a['motivo']}")
+
     seguir = input("\n¿Atender a otro paciente? (s/n): ").strip().lower()
 
+print("\nTotal de pacientes:", len(lista_paciente), "| citas:", len(lista_cita), "| atenciones:", len(historial))
 print("Fin del programa.")
