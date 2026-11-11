@@ -64,3 +64,9 @@ def filtrar_especialidad(especialidad):
 
 def filtrar_atencion(codigo_paciente):
     return list(filter(lambda a: a["paciente"] == codigo_paciente, historial))
+
+def enmascarar(nombre):
+    resultado = ""
+    for palabra in nombre.split():
+        resultado = resultado + palabra[0] + "*** "
+    return resultado.strip()
