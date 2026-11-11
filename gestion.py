@@ -49,3 +49,12 @@ def programar_cita(codigo_paciente, codigo_medico, fecha):
     cita = Cita(f"C{len(lista_cita) + 1:03d}", paciente, medico, fecha.strip())
     lista_cita.append(cita)
     return cita
+
+def registrar_atencion(codigo, codigo_paciente, codigo_medico, motivo):
+    repetido = list(filter(lambda a: a["codigo"] == codigo, historial))
+    paciente = buscar_codigo(lista_paciente, codigo_paciente)
+    medico = buscar_codigo(lista_medico, codigo_medico)
+    if len(repetido) > 0 or paciente == False or medico == False:
+        return False
+    historial.append({"codigo": codigo, "paciente": codigo_paciente, "medico": codigo_medico, "motivo": motivo.strip()})
+    return True
