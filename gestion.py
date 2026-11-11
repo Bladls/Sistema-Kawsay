@@ -19,3 +19,9 @@ def buscar_codigo(lista, codigo):
         if elemento.codigo == codigo.strip().upper():
             return elemento
     return False
+
+def registrar_paciente(codigo, nombre, edad):
+    if buscar_codigo(lista_paciente, codigo) != False or nombre.strip() == "" or edad < 0 or edad > 120:
+        return False
+    lista_paciente.append(crear_persona("paciente", codigo, nombre.strip(), edad))
+    return True
