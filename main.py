@@ -1,4 +1,6 @@
-from gestion import lista_paciente, registrar_paciente, registrar_medico, enmascarar
+from datetime import datetime
+from gestion import (lista_paciente, lista_medico, buscar_codigo, registrar_paciente, registrar_medico,
+                       validar_fecha, programar_cita, filtrar_especialidad, enmascarar)
 
 print("=== SISTEMA KAWSAY (prototipo con datos ficticios) ===")
 print("Use un nombre inventado para el paciente. No escriba DNI, teléfono ni datos médicos reales.")
@@ -23,6 +25,21 @@ while seguir == "s":
         print("Error: nombre vacío o edad fuera del rango 0 a 120.")
         continue
     print("Registrado:", enmascarar(nombre), "- código", codigo_paciente)
+
+    print("\nMédicos disponibles:")
+    for m in filtrar_especialidad(""):
+        print("  ", m.resumen())
+
+    codigo_medico = input("Código del médico (ejemplo M001): ")
+    while buscar_codigo(lista_medico, codigo_medico) == False:
+        codigo_medico = input("Error: el código no existe. Escriba otro código de médico: ")
+
+    hoy = datetime.now().strftime("%d/%m/%Y")
+    fecha = input(f"Fecha de la cita dd/mm/aaaa (desde hoy {hoy} hasta 31/12/2026): ")
+    while validar_fecha(fecha) == False:
+        fecha = input("Error: fecha no válida. Escriba otra fecha (dd/mm/aaaa): ")
+    cita = programar_cita(codigo_paciente, codigo_medico, fecha)
+    print(f"Cita programada -> {cita.codigo}: {enmascarar(nombre)} con Dr. {cita.medico.nombre} - {cita.fecha}")
 
     seguir = input("\n¿Atender a otro paciente? (s/n): ").strip().lower()
 
