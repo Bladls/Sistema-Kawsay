@@ -24,7 +24,7 @@ El sistema usa solo datos ficticios. No se piden DNI, teléfono, dirección ni d
 | ID | Requerimiento | Funciones |
 |---|---|---|
 | RF01 | Registrar paciente | `registrar_paciente` |
-| RF02 | Registrar médico | `registrar_medico` |
+| RF02 | Registrar médico (opción 2 del menú) | `registrar_medico` |
 | RF03 | Buscar por código | `buscar_codigo` |
 | RF04 | Programar cita | `validar_fecha`, `programar_cita` |
 | RF05 | Registrar atención (historial) | `registrar_atencion`, `filtrar_atencion` |
@@ -60,7 +60,22 @@ Sistema-Kawsay/
 python main.py
 ```
 
-El programa pide el nombre (ficticio) y la edad del paciente, el código del médico (de `M001` a `M004`), la fecha de la cita (desde hoy hasta el 31/12/2026) y el motivo de la consulta.
+Requiere Python 3.10 o superior (el menú usa `match`). Al iniciar, el programa muestra un menú:
+
+| Opción | Acción | Requerimiento |
+|---|---|---|
+| 1 | Registrar paciente | RF01 |
+| 2 | Registrar médico (la especialidad se elige de una lista de 10 por número) | RF02 |
+| 3 | Buscar paciente por código | RF03 |
+| 4 | Buscar médico por código | RF03 |
+| 5 | Buscar médicos por especialidad | `filtrar_especialidad` |
+| 6 | Programar cita | RF04 |
+| 7 | Registrar atención | RF05 |
+| 8 | Ver el historial completo de un paciente | `filtrar_atencion` |
+| 9 | Ver listados de pacientes, médicos y citas | - |
+| 0 | Salir | - |
+
+El sistema ya no trae médicos precargados: se registran desde la opción 2.
 
 ## Integrantes
 
